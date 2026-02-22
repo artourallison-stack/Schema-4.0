@@ -1,0 +1,21 @@
+module.exports = {
+  version: "4.0",
+  title: "Коллегия",
+  description: "Оркестрация агентов и локальных генеративных моделей",
+  icon: "icon.png",
+  menu: async (kernel, info) => {
+    // Проверяем, установлена ли уже виртуальная среда
+    let installed = info.exists("env");
+    
+    if (!installed) {
+      return [
+        { icon: "fa-solid fa-plug", text: "Установить зависимости (Install)", href: "install.js" }
+      ];
+    } else {
+      return [
+        { icon: "fa-solid fa-power-off", text: "Запустить Коллегию (Start Daemon)", href: "start.js" },
+        { icon: "fa-solid fa-rotate", text: "Жесткое обновление (Update)", href: "update.js" }
+      ];
+    }
+  }
+}
