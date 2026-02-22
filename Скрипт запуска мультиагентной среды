@@ -1,0 +1,27 @@
+module.exports = {
+  version: "4.0",
+  daemon: true,
+  prerequisite_env: [
+    "TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD",
+    "HF_ENDPOINT"
+  ],
+  run: [
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",
+        env: {
+          "TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD": "1",
+          "HF_ENDPOINT": "https://hf-mirror.com"
+        },
+        message: "echo 'Инициализация агентов...' && python -m langgraph.server & python -m vibe_kanban.server --port 8080 & ollama serve"
+      }
+    },
+    {
+      method: "local.set",
+      params: {
+        url: "http://127.0.0.1:8080"
+      }
+    }
+  ]
+}
