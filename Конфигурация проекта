@@ -1,0 +1,7 @@
+{
+  "version": "4.0",
+  "title": "Коллегия (The Collegium)",
+  "description": "Мультиагентная ИИ-среда: Wan2GP, Qwen3-TTS, Qwen3-VL, Vibe Kanban и Browser Use.",
+  "icon": "icon.png",
+  "menu": "pinokio.js"
+}
