@@ -1,0 +1,26 @@
+module.exports = {
+  version: "4.0",
+  run: [
+    {
+      method: "shell.run",
+      params: {
+        path: "app_vibe",
+        message: "git fetch origin && git reset --hard origin/main"
+      }
+    },
+    {
+      method: "shell.run",
+      params: {
+        path: "app_wan",
+        message: "git fetch origin && git reset --hard origin/main"
+      }
+    },
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",
+        message: "uv pip install -r app_vibe/requirements.txt --upgrade"
+      }
+    }
+  ]
+}
