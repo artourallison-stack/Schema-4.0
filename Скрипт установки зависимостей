@@ -1,0 +1,44 @@
+module.exports = {
+  version: "4.0",
+  run: [
+    {
+      method: "shell.run",
+      params: {
+        message: [
+          "echo 'Клонирование актуальных репозиториев (depth 1 для скорости)...'",
+          "git clone --depth 1 https://github.com/cocktailpeanut/vibe-kanban.git app_vibe",
+          "git clone --depth 1 https://github.com/pinokiocomputer/wan2gp.git app_wan"
+        ].join(" && ")
+      }
+    },
+    {
+      method: "shell.run",
+      params: {
+        message: "echo 'Создание изолированной среды через UV...' && uv venv env"
+      }
+    },
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",
+        env: {
+          "HF_ENDPOINT": "https://hf-mirror.com"
+        },
+        message: "echo 'Параллельная установка зависимостей...' && uv pip install -r app_vibe/requirements.txt langgraph redis pydantic browser-use"
+      }
+    },
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",
+        message: "echo 'Установка ядра машинного зрения и видео (PyTorch 2.1.0, CUDA 12.1)...' && uv pip install torch==2.1.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121"
+      }
+    },
+    {
+      method: "fs.link",
+      params: {
+        venv: "env"
+      }
+    }
+  ]
+}
